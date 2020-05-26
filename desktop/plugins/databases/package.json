@@ -1,0 +1,23 @@
+{
+  "name": "Databases",
+  "version": "1.0.0",
+  "title": "Databases",
+  "icon": "internet",
+  "main": "index.tsx",
+  "license": "MIT",
+  "keywords": [
+    "flipper-plugin"
+  ],
+  "dependencies": {
+    "dateformat": "^3.0.3",
+    "sql-formatter": "^2.3.3"
+  },
+  "devDependencies": {
+    "@types/dateformat": "^3.0.1",
+    "@types/sql-formatter": "^2.3.0"
+  },
+  "bugs": {
+    "email": "oncall+flipper@xmail.facebook.com",
+    "url": "https://fb.workplace.com/groups/flippersupport/"
+  }
+}

@@ -1,4 +1,4 @@
-# Contributing to Sonar
+# Contributing to Flipper
 
 We want to make contributing to this project as easy and transparent as
 possible.
@@ -12,7 +12,7 @@ pushed to GitHub.
 For changes affecting both, native code and JavaScript, make sure to only create
 a single PR containing both parts of the code.
 
-Although the Sonar desktop app is only released for macOS right now, it is
+Although the Flipper desktop app is only released for macOS right now, it is
 possible to create Windows and Linux builds of the app. Please keep this in mind
 when dealing with platform-specific code.
 
@@ -26,6 +26,14 @@ We actively welcome your pull requests.
 4. Ensure the test suite passes.
 5. Make sure your code lints.
 6. If you haven't already, complete the Contributor License Agreement ("CLA").
+
+### Verifying changes to Flipper
+
+![GitHub Actions artifact downloads](static/actions-artifacts.png)
+
+After opening a pull request or pushing to a branch, the CI will generate
+build artifacts for you for Linux, MacOS and Windows. You can download them
+from the GitHub Actions checks on your Pull Request.
 
 ## Contributor License Agreement ("CLA")
 
@@ -51,5 +59,5 @@ run `yarn lint` and `yarn fix` to apply formatting fixes.
 
 ## License
 
-By contributing to Sonar, you agree that your contributions will be licensed
-under the LICENSE file in the root directory of this source tree.
+By contributing to Flipper, you agree that your contributions will be licensed
+under the [LICENSE](./LICENSE) file.

@@ -1,63 +1,76 @@
+/*
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
 apply plugin: 'com.android.application'
 
 android {
-
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion rootProject.buildToolsVersion
+    ndkVersion rootProject.ndkVersion
     defaultConfig {
-        minSdkVersion rootProject.minSdkVersion
-        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
-        applicationId "com.facebook.sonar.sample"
+        minSdkVersion 21
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        applicationId 'com.facebook.flipper.sample'
+        targetSdkVersion 28
     }
 
     lintOptions {
         abortOnError false
     }
+
     sourceSets {
         main {
             manifest.srcFile './AndroidManifest.xml'
+        }
+
+        test {
             java {
-                srcDir 'src'
-            }
-            res {
-                srcDir 'res'
+                exclude 'com/facebook/flipper/plugins/facebook/**'
             }
         }
     }
-    packagingOptions {
-        pickFirst 'lib/armeabi-v7a/libfb.so'
-        pickFirst 'lib/x86/libfb.so'
-        pickFirst 'lib/x86_64/libfb.so'
-        pickFirst 'lib/arm64-v8a/libfb.so'
+
+    compileOptions {
+        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
     }
 }
 
+
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
-    implementation 'com.android.support:design:26.1.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    // ...
+    // Android Support Library
+    implementation deps.supportAppCompat
+
     // Litho
-    implementation 'com.facebook.litho:litho-core:0.15.0'
-    implementation 'com.facebook.litho:litho-widget:0.15.0'
-    compileOnly 'com.facebook.litho:litho-annotations:0.15.0'
+    implementation deps.lithoCore
+    implementation deps.lithoWidget
+    implementation deps.lithoAnnotations
+    implementation deps.lithoFresco
+    annotationProcessor deps.lithoProcessor
 
-    annotationProcessor 'com.facebook.litho:litho-processor:0.15.0'
+    // Third-party
+    implementation deps.soloader
+    implementation deps.okhttp3
+    implementation deps.fresco
 
-    // SoLoader
-    implementation 'com.facebook.soloader:soloader:0.4.1'
+    // Integration test
+    androidTestImplementation deps.testCore
+    androidTestImplementation deps.testRules
 
-    // For integration with Fresco
-    implementation 'com.facebook.litho:litho-fresco:0.15.0'
+    // Unit tests
+    testImplementation deps.mockito
+    testImplementation deps.robolectric
+    testImplementation deps.hamcrest
+    testImplementation deps.junit
 
-    // For testing
-    testImplementation 'com.facebook.litho:litho-testing:0.15.0'
-
-    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
-    implementation project(':android')
-    //implementation project(':sonar')
+    debugImplementation project(':android')
+    debugImplementation project(':fresco-plugin')
+    debugImplementation project(':network-plugin')
+    debugImplementation project(':litho-plugin')
+    debugImplementation project(':leakcanary-plugin')
+    releaseImplementation project(':noop')
 }
